@@ -19,9 +19,7 @@ function parseNumber(input) {
   return parts.length === 2 ? parts[0] / parts[1] : parts[0];
 }
 
-function ConvertHandler(input) {
-  if (!(this instanceof ConvertHandler)) return new ConvertHandler().convertInput(input);
-}
+function ConvertHandler() {}
 
 ConvertHandler.prototype.getNum = function (input) {
   const unitStart = String(input || '').search(/[a-z]/i);
