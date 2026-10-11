@@ -1,0 +1,19 @@
+{
+  "name": "metric-imperial-converter",
+  "version": "1.0.0",
+  "description": "Metric-imperial converter for the freeCodeCamp APIs and Microservices project.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "NODE_ENV=test mocha tests/*.js --exit"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "mocha": "^11.0.1",
+    "supertest": "^7.0.0"
+  }
+}
