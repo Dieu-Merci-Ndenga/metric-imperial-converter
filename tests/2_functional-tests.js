@@ -18,19 +18,19 @@ suite('Functional Tests', () => {
   test('GET /api/convert?input=32g', async () => {
     const response = await request(app).get('/api/convert?input=32g');
     assert.strictEqual(response.status, 200);
-    assert.strictEqual(response.text, 'invalid unit');
+    assert.deepEqual(response.body, { error: 'invalid unit' });
   });
 
   test('GET /api/convert?input=3/7.2/4kg', async () => {
     const response = await request(app).get('/api/convert?input=3%2F7.2%2F4kg');
     assert.strictEqual(response.status, 200);
-    assert.strictEqual(response.text, 'invalid number');
+    assert.deepEqual(response.body, { error: 'invalid number' });
   });
 
   test('GET /api/convert?input=3/7.2/4kilomegagram', async () => {
     const response = await request(app).get('/api/convert?input=3%2F7.2%2F4kilomegagram');
     assert.strictEqual(response.status, 200);
-    assert.strictEqual(response.text, 'invalid number and unit');
+    assert.deepEqual(response.body, { error: 'invalid number and unit' });
   });
 
   test('GET /api/convert?input=kg', async () => {
