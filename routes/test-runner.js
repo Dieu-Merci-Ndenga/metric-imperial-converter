@@ -7,7 +7,7 @@ const mocha = new Mocha({
   timeout: 5000
 });
 
-const testDir = path.join(__dirname, 'tests');
+const testDir = path.join(__dirname, '..', 'tests');
 
 fs.readdirSync(testDir).filter(file => file.endsWith('.js')).forEach(file => {
   mocha.addFile(path.join(testDir, file));

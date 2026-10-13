@@ -1,6 +1,6 @@
 const cors = require('cors');
 const fs = require('fs');
-const runner = require('../test-runner');
+const runner = require('./test-runner');
 
 module.exports = function (app) {
   app.route('/_api/get-tests')

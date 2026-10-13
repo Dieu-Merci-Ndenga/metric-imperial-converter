@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const api = require('./routes/api');
 const fccTesting = require('./routes/fcctesting');
-const runner = require('./test-runner');
+const runner = require('./routes/test-runner');
 
 const app = express();
 
