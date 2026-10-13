@@ -7,21 +7,17 @@ const units = {
   kg: { name: 'kilograms', returnUnit: 'lbs', factor: 1 / 0.453592 }
 };
 
-const numberPattern = '(?:\\d+(?:\\.\\d+)?|\\.\\d+)';
-// On autorise une seule fraction proprement
+const numberPattern = '[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)';
 const validNumber = new RegExp(`^${numberPattern}(?:/${numberPattern})?$`);
 
 function parseNumber(input) {
   if (input === '' || input === undefined || input === null) return 1;
-  
-  // Vérifie les doubles fractions (ex: 3/2/3)
+
   const fractions = input.split('/');
-  if (fractions.length > 2) return undefined;
-  
-  if (!validNumber.test(input)) return undefined;
+  if (fractions.length > 2 || !validNumber.test(input)) return 'invalid number';
 
   const parts = fractions.map(Number);
-  if (parts.length === 2 && parts[1] === 0) return undefined;
+  if (parts.length === 2 && parts[1] === 0) return 'invalid number';
   return parts.length === 2 ? parts[0] / parts[1] : parts[0];
 }
 
@@ -34,9 +30,9 @@ class ConvertHandler {
 
   getUnit(input) {
     const unitStart = String(input || '').search(/[a-z]/i);
-    if (unitStart === -1) return undefined;
+    if (unitStart === -1) return 'invalid unit';
     const unit = input.slice(unitStart).toLowerCase();
-    return units[unit] ? (unit === 'l' ? 'L' : unit) : undefined;
+    return units[unit] ? (unit === 'l' ? 'L' : unit) : 'invalid unit';
   }
 
   getReturnUnit(initUnit) {
@@ -45,8 +41,9 @@ class ConvertHandler {
   }
 
   spellOutUnit(unit) {
-    const definition = units[String(unit || '').toLowerCase()];
-    return definition ? definition.name : undefined;
+    const normalizedUnit = String(unit || '').toLowerCase();
+    if (normalizedUnit === 'l') return 'L';
+    return units[normalizedUnit] ? normalizedUnit : 'invalid unit';
   }
 
   convert(initNum, initUnit) {
@@ -56,16 +53,24 @@ class ConvertHandler {
   }
 
   getString(initNum, initUnit, returnNum, returnUnit) {
-    return `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
+    const names = {
+      gal: 'gallons',
+      L: 'liters',
+      mi: 'miles',
+      km: 'kilometers',
+      lbs: 'pounds',
+      kg: 'kilograms'
+    };
+    return `${initNum} ${names[this.spellOutUnit(initUnit)]} converts to ${returnNum} ${names[this.spellOutUnit(returnUnit)]}`;
   }
 
   convertInput(input) {
     const initNum = this.getNum(input);
     const initUnit = this.getUnit(input);
 
-    if (initNum === undefined && initUnit === undefined) return { error: 'invalid number and unit' };
-    if (initNum === undefined) return { error: 'invalid number' };
-    if (initUnit === undefined) return { error: 'invalid unit' };
+    if (initNum === 'invalid number' && initUnit === 'invalid unit') return { error: 'invalid number and unit' };
+    if (initNum === 'invalid number') return { error: 'invalid number' };
+    if (initUnit === 'invalid unit') return { error: 'invalid unit' };
 
     const returnUnit = this.getReturnUnit(initUnit);
     const returnNum = this.convert(initNum, initUnit);
