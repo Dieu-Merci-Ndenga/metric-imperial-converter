@@ -51,7 +51,8 @@ suite('Unit Tests', () => {
   });
 
   test('should correctly return the spelled-out string unit for each valid input unit', () => {
-    assert.strictEqual(convertAnswerOrUnit = convertHandler.spellOutUnit('gal'), 'gallons');
+    // assert.strictEqual(convertAnswerOrUnit = convertHandler.spellOutUnit('gal'), 'gallons');
+    assert.strictEqual(convertHandler.spellOutUnit('gal'), 'gallons');
     assert.strictEqual(convertHandler.spellOutUnit('l'), 'liters');
     assert.strictEqual(convertHandler.spellOutUnit('mi'), 'miles');
     assert.strictEqual(convertHandler.spellOutUnit('km'), 'kilometers');
