@@ -40,19 +40,16 @@ const PORT = process.env.PORT || 3000;
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
-    
-    // Déclenchement automatique des tests si NODE_ENV=test
-    if (process.env.NODE_ENV === 'test') {
-      console.log('Running Tests...');
-      setTimeout(() => {
-        try {
-          runner.run();
-        } catch (e) {
-          console.log('Tests are not valid:');
-          console.log(e);
-        }
-      }, 1500);
-    }
+
+    console.log('Running Tests...');
+    setTimeout(() => {
+      try {
+        runner.run();
+      } catch (e) {
+        console.log('Tests are not valid:');
+        console.log(e);
+      }
+    }, 1500);
   });
 }
 
