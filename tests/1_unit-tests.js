@@ -21,7 +21,7 @@ suite('Unit Tests', () => {
   });
 
   test('should correctly return an error on a double-fraction', () => {
-    assert.isUndefined(convertHandler.getNum('2/2/7kg'));
+    assert.strictEqual(convertHandler.getNum('2/2/7kg'), 'invalid number');
   });
 
   test('should default to a numerical input of 1 when none is provided', () => {
@@ -38,7 +38,7 @@ suite('Unit Tests', () => {
   });
 
   test('should correctly return an error for an invalid input unit', () => {
-    assert.isUndefined(convertHandler.getUnit('2invalidUnit'));
+    assert.strictEqual(convertHandler.getUnit('2invalidUnit'), 'invalid unit');
   });
 
   test('should correctly return the return unit for each valid input unit', () => {
@@ -51,12 +51,12 @@ suite('Unit Tests', () => {
   });
 
   test('should correctly return the spelled-out string unit for each valid input unit', () => {
-    assert.strictEqual(convertAnswerOrUnit = convertHandler.spellOutUnit('gal'), 'gallons');
-    assert.strictEqual(convertHandler.spellOutUnit('l'), 'liters');
-    assert.strictEqual(convertHandler.spellOutUnit('mi'), 'miles');
-    assert.strictEqual(convertHandler.spellOutUnit('km'), 'kilometers');
-    assert.strictEqual(convertHandler.spellOutUnit('lbs'), 'pounds');
-    assert.strictEqual(convertHandler.spellOutUnit('kg'), 'kilograms');
+    assert.strictEqual(convertHandler.spellOutUnit('GAL'), 'gal');
+    assert.strictEqual(convertHandler.spellOutUnit('l'), 'L');
+    assert.strictEqual(convertHandler.spellOutUnit('MI'), 'mi');
+    assert.strictEqual(convertHandler.spellOutUnit('KM'), 'km');
+    assert.strictEqual(convertHandler.spellOutUnit('LBS'), 'lbs');
+    assert.strictEqual(convertHandler.spellOutUnit('KG'), 'kg');
   });
 
   test('should correctly convert gal to L', () => {
