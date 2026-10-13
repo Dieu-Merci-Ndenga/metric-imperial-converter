@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_ENV=test mocha tests/*.js --exit"
+    "test": "NODE_ENV=test mocha tests/*.js --ui tdd --exit"
   },
   "dependencies": {
     "cors": "^2.8.5",
