@@ -160,4 +160,4 @@ The conversion logic is kept in a dedicated controller so it can be reused by bo
 
 ## License
 
-This project is available for educational and demonstration purposes. Add a license file if you plan to distribute or reuse the project under specific terms.
+`MIT`
